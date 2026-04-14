@@ -1,0 +1,12 @@
+{
+  "name": "velovault",
+  "version": "0.1.0",
+  "description": "velo-brain content and ingestion scripts",
+  "scripts": {
+    "ingest:notion": "bun run scripts/ingest-notion.ts",
+    "ingest:slack": "bun run scripts/ingest-slack.ts"
+  },
+  "dependencies": {
+    "postgres": "^3.4.4"
+  }
+}
