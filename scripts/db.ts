@@ -4,7 +4,11 @@
  */
 import postgres from 'postgres';
 
-const DATABASE_URL = process.env.VELO_BRAIN_DATABASE_URL || 'postgresql://postgres.ctqanjywpxsoyqwtneht@aws-1-eu-central-2.pooler.supabase.com:5432/postgres';
+const DATABASE_URL = process.env.VELO_BRAIN_DATABASE_URL;
+if (!DATABASE_URL) {
+  console.error('Error: VELO_BRAIN_DATABASE_URL environment variable is required.');
+  process.exit(1);
+}
 
 export const sql = postgres(DATABASE_URL, { max: 5 });
 
