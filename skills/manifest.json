@@ -1,0 +1,25 @@
+{
+  "version": "0.1.0",
+  "skills": [
+    {
+      "name": "ingest",
+      "path": "skills/ingest/SKILL.md",
+      "description": "Ingest data from Notion, Slack, and Outlook into velo-brain. Use when syncing external data sources."
+    },
+    {
+      "name": "client-brief",
+      "path": "skills/client-brief/SKILL.md",
+      "description": "Compile everything we know about a client before a meeting. Brain-first research + external enrichment. Use when preparing for client meetings."
+    },
+    {
+      "name": "tone-of-voice",
+      "path": "skills/tone-of-voice/SKILL.md",
+      "description": "Analyze and apply a team member's writing style. Build tone profiles from Slack/email, write drafts that sound like the person. Use when writing customer emails, proposals, or LinkedIn posts."
+    },
+    {
+      "name": "weekly-digest",
+      "path": "skills/weekly-digest/SKILL.md",
+      "description": "Weekly intelligence digest: project status, pipeline changes, shipped features, team capacity. Use on Fridays or Mondays."
+    }
+  ]
+}
