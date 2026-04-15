@@ -20,6 +20,16 @@
       "name": "weekly-digest",
       "path": "skills/weekly-digest/SKILL.md",
       "description": "Weekly intelligence digest: project status, pipeline changes, shipped features, team capacity. Use on Fridays or Mondays."
+    },
+    {
+      "name": "boot",
+      "path": "skills/boot/SKILL.md",
+      "description": "Session bootstrap: load conventions, corrections, hot cache from brain. Run at session start and after context compaction."
+    },
+    {
+      "name": "recall",
+      "path": "skills/recall/SKILL.md",
+      "description": "Multi-hop retrieval: deep context search that follows graph links 1-2 hops. Use when you need the full picture, not just one page."
     }
   ]
 }

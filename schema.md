@@ -21,6 +21,8 @@ Every page has two layers, separated by `---`:
 | concept | `concepts/` | Notion strategi-sider, Slack #tech-talk |
 | process | `processes/` | Notion Håndbok, onboarding, rutiner |
 | objective | `objectives/` | Notion Objectives + Key Results |
+| convention | `conventions/` | Team learnings, /boot cortex |
+| correction | `corrections/` | Structural fixes for recurring mistakes |
 
 ---
 
@@ -298,6 +300,87 @@ Current assessment of progress.
 - **YYYY-MM-DD** | Source — Progress updates.
 ```
 
+## Convention Template
+
+```markdown
+---
+type: convention
+title: Convention Name
+tags: [category]
+severity: must | should | prefer
+activates: []
+created: YYYY-MM-DD
+---
+
+# Convention Name
+
+> One-line rule.
+
+## Regel
+Hva som skal gjøres, presist og testbart.
+
+## Hvorfor
+Bakgrunn — hva som gikk galt eller hva vi lærte som førte til denne konvensjonen.
+
+## Når den gjelder
+Kontekst og triggers — når skal denne regelen aktiveres?
+
+## Eksempel
+Konkret eksempel på riktig vs. feil bruk.
+```
+
+## Correction Template
+
+```markdown
+---
+type: correction
+title: Correction Name
+tags: [category]
+severity: critical | important | minor
+corrects: "slug of page/pattern that caused the issue"
+created: YYYY-MM-DD
+---
+
+# Correction Name
+
+> One-line: hva som gikk galt og den strukturelle fiksen.
+
+## Problemet
+Hva som skjedde — konkret feil, ikke bare "det funket ikke".
+
+## Rotårsak
+Hvorfor det skjedde — strukturell årsak, ikke bare symptom.
+
+## Korreksjon
+Den permanente regelen/endringen som forhindrer gjentakelse.
+
+## Verifisering
+Hvordan sjekke at korrekturen virker — hva ser du etter?
+```
+
+## Confidence Scoring (alle entity types)
+
+Alle sider kan ha disse feltene i frontmatter:
+
+```yaml
+confidence: high | medium | low    # Hvor sikre vi er på innholdet
+last_verified: YYYY-MM-DD          # Sist noen sjekket at dette stemmer
+```
+
+- **high** — Nylig verifisert mot primærkilde, aktivt i bruk
+- **medium** — Synket fra kilde men ikke manuelt verifisert, eller >30 dager gammel
+- **low** — Utledet, antatt, eller >90 dager siden siste verifisering
+
+assumption-check oppdaterer disse feltene. `/boot` flagger low-confidence sider.
+
+## Context Activation (activates-feltet)
+
+Sider kan definere `activates: [slug1, slug2]` i frontmatter.
+Når en side leses, bør relatert kontekst fra activates-listen også lastes.
+
+Eksempel: en klient-page kan ha `activates: [conventions/klient-kommunikasjon, persons/ansvarlig]`
+slik at relevante regler og kontekst alltid følger med.
+
 ## Filing Rules
 
 1. **Person** (team or contact) → `persons/`
@@ -308,8 +391,10 @@ Current assessment of progress.
 6. **Reusable knowledge** → `concepts/`
 7. **Internal process** → `processes/`
 8. **Objective/OKR** → `objectives/`
-9. **Raw imports** → `sources/`
-10. **Unsorted** → `inbox/`
+9. **Convention** (team rule) → `conventions/`
+10. **Correction** (structural fix) → `corrections/`
+11. **Raw imports** → `sources/`
+12. **Unsorted** → `inbox/`
 
 ## Slug Convention
 

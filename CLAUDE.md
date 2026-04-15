@@ -14,7 +14,7 @@ Built on gbrain/zbrain architecture: Postgres + pgvector, markdown pages, MCP se
 
 ## Entity Types
 
-person, client, project, meeting, deal, concept, process, objective
+person, client, project, meeting, deal, concept, process, objective, convention, correction
 
 ## Key Files
 
@@ -23,7 +23,15 @@ person, client, project, meeting, deal, concept, process, objective
 - `scripts/notion-sync.md` — Notion → brain scheduled task prompt
 - `scripts/slack-sync.md` — Slack → brain scheduled task prompt
 - `scripts/calendar-sync.md` — Calendar → brain scheduled task prompt
+- `scripts/cortex-sync.md` — Conventions & corrections → brain scheduled task prompt
+- `scripts/confidence-decay.md` — Weekly confidence decay check
 - `content/` — Brain content organized by entity type
+- `content/conventions/` — Active team conventions (synced to brain by cortex-sync)
+- `content/corrections/` — Structural fixes (synced to brain by cortex-sync)
+- `content/concepts/agent-architecture-patterns.md` — Pattern catalogue across Velo systems
+- `scripts/hot-cache.md` — Daily session primer builder
+- `skills/recall/SKILL.md` — Multi-hop retrieval skill
+- `skills/boot/SKILL.md` — Session bootstrap skill
 
 ## Notion Data Sources
 
@@ -53,6 +61,17 @@ person, client, project, meeting, deal, concept, process, objective
 | #tech-talk | C09LQ4BD0UQ | concepts/* |
 | #brainstorming | C09GWFAH6MS | concepts/* |
 
+## Sync Jobs (Scheduled Tasks)
+
+| Task | Schedule | Source |
+|------|----------|--------|
+| notion-sync | Weekdays 07:11 | Notion databases → brain |
+| slack-sync | Weekdays 08:17, 14:17, 20:17 | Slack channels → brain |
+| calendar-sync | Weekdays 07:33 | Outlook calendar → brain |
+| cortex-sync | Daily 06:47 | Repo conventions/corrections → brain |
+| hot-cache | Daily 06:53 | Build compressed session primer → meta/hot-cache |
+| confidence-decay | Mondays 06:23 | Brain pages → downgrade stale confidence |
+
 ## Conventions
 
 - Norwegian content, Norwegian tsvector for full-text search
@@ -60,3 +79,33 @@ person, client, project, meeting, deal, concept, process, objective
 - Always store source IDs: `notion_id`, `slack_thread_ts`, `outlook_event_id`
 - Iron Law: every entity mention → back-link
 - Citation on every fact: `[Source: ...]`
+
+## Self-Improvement System
+
+velo-brain lærer og forbedrer seg over tid via tre mekanismer:
+
+### Conventions (`conventions/`)
+Aktive regler teamet har lært. Leses ved session-start via `/boot`.
+Konvensjoner overstyrer defaults — de er akkumulert teamlæring.
+Opprett nye via `put_page` med `type: convention` når teamet lærer noe som bør gjelde permanent.
+
+### Corrections (`corrections/`)
+Strukturelle fiks for feil som har skjedd. Ikke bare "vi lærte X" — men en permanent regel
+som forhindrer gjentakelse. Opprett via `put_page` med `type: correction` når en feil fanges.
+Korrekturer refererer alltid til rotårsak, ikke bare symptom.
+
+### Confidence Scoring
+Alle sider kan ha `confidence: high|medium|low` og `last_verified: YYYY-MM-DD` i frontmatter.
+assumption-check og ingestion-pipelines oppdaterer disse. `/boot` flagger low-confidence data.
+
+### Context Activation
+Sider kan definere `activates: [slug1, slug2]` i frontmatter for automatisk kontekst-lasting.
+Klienter aktiverer relevante konvensjoner og personer. Prosjekter aktiverer klient og team.
+
+## Session Bootstrap
+
+**Ved session-start:** Kjør `/boot` for å laste konvensjoner, korrekturer, og aktiv kontekst fra brain.
+
+**Etter context compaction:** Compaction-sammendraget er IKKE en erstatning for brain-data.
+Kjør `/boot` umiddelbart etter compaction for å re-laste cortex (konvensjoner + korrekturer).
+Stol aldri på compaction-minnet for regler og konvensjoner — last alltid fra brain.
