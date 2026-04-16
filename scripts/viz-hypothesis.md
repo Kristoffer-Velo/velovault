@@ -145,6 +145,10 @@ If any pattern present → revise the diff before posting, OR downgrade the hypo
 Default channel: **DM to Kristoffer** (`channel_id: U081N70KGES`).
 To override, set channel at top of this file. Future: `#brain-ops` if that channel accepts bot posts.
 
+**Use `slack_send_message` (direct send), not `slack_send_message_draft`.**
+
+Reasoning: the branch is already the approval gate — nothing merges to main without an explicit ✅ in thread AND a manual PR merge from the GitHub UI. A draft adds a step without adding safety. Send directly so the feedback loop actually runs.
+
 **Exact format** (do not improvise):
 
 ```
