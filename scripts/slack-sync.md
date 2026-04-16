@@ -15,7 +15,7 @@ Channels to scan:
 - C09K1537Y85 (#project-baneservice) → projects/baneservice
 - C0AR7CXNJQ7 (#project-zevent) → projects/zevent
 - C0A9FAZ1PKJ (#project-aidn) → projects/aidn
-- C0AK6JJAS3D (#project-velox) → projects/velox
+- C0AK6JJAS3D (#project-velox) → projects/velox (umbrella: willy, velo-brain, velovault)
 - C09FJU659KQ (#project-nki) → projects/nki
 - C08RXNEJ39C (#project-norgesgruppen) → projects/norgesgruppen
 - C0A2YR42U02 (#project-neo) → projects/neo
@@ -34,6 +34,14 @@ For each channel:
    - Source: "Slack #{channel}"
    - Summary: extracted insight
 7. If the compiled truth needs updating (major status change): `zbrain put_page`
+
+**Special: #project-velox**
+Velox is the umbrella project for Velo's AI agent/brain products (willy, velo-brain, velovault).
+When extracting from this channel:
+- Willy-related updates → also add timeline entry to `products/willy` (Simen's primary focus)
+- velo-brain/velovault updates → also add timeline entry to `products/velo-brain` (Kristoffer's primary focus)
+- General velox/product strategy → `projects/velox`
+- Create back-links between all three
 
 ### Step 2: Sales Channel (#salg)
 
