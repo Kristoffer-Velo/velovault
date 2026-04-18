@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useRef } from 'react'
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { nodesByLayer, layers, type NodeData } from './data/nodes'
 import { connections } from './data/connections'
@@ -76,6 +76,19 @@ export default function App() {
     setLockedNode(null)
     setHoveredNode(null)
     setTooltipPos(null)
+  }, [])
+
+  // Escape key: clear locked selection
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setLockedNode(null)
+        setHoveredNode(null)
+        setTooltipPos(null)
+      }
+    }
+    document.addEventListener('keydown', handler)
+    return () => document.removeEventListener('keydown', handler)
   }, [])
 
   const activeColor = activeNode
@@ -167,6 +180,11 @@ export default function App() {
 
       {/* Legend */}
       <Legend />
+
+      {/* Escape hint — appears when a node is locked */}
+      {lockedNode && (
+        <div className="escape-hint">Esc to clear</div>
+      )}
     </div>
   )
 }

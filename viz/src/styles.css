@@ -506,6 +506,20 @@ body {
   margin-top: 2px;
 }
 
+/* Escape hint */
+.escape-hint {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  pointer-events: none;
+  user-select: none;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .stage {
