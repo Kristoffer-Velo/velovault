@@ -30,6 +30,16 @@
       "name": "recall",
       "path": "skills/recall/SKILL.md",
       "description": "Multi-hop retrieval: deep context search that follows graph links 1-2 hops. Use when you need the full picture, not just one page."
+    },
+    {
+      "name": "briefing",
+      "path": "skills/briefing/SKILL.md",
+      "description": "Daily preparation briefing: today's meetings, attendee context, open threads, follow-ups, deals that need attention. Run in the morning."
+    },
+    {
+      "name": "maintain",
+      "path": "skills/maintain/SKILL.md",
+      "description": "Brain health sweep: orphans, dead links, missing back-links, filing violations, stale truth. Run manually when you want a deep quality check."
     }
   ]
 }
