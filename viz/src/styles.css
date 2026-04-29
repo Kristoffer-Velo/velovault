@@ -439,6 +439,22 @@ body {
   line-height: 1.5;
 }
 
+.tooltip-degree {
+  font-size: 11px;
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+}
+
+.tooltip-degree-glyph {
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 12px;
+  opacity: 0.75;
+}
+
 .tooltip-schedule {
   font-size: 10px;
   margin-top: 6px;
