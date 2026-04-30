@@ -14,6 +14,26 @@ interface Props {
   onClick: (node: NodeData | null) => void
 }
 
+type Cadence = 'daily' | 'weekly' | 'monthly'
+
+// Derive a coarse cadence bucket from the schedule string. Daily covers
+// daily/weekday/every-2-days runs; weekly covers single-day-of-week runs;
+// monthly is its own bucket. Time-of-day is ignored — purely frequency.
+function cadenceOf(schedule: string | undefined): Cadence | null {
+  if (!schedule) return null
+  const s = schedule.toLowerCase()
+  if (s.startsWith('monthly')) return 'monthly'
+  if (s.startsWith('daily') || s.startsWith('weekdays') || s.startsWith('every')) return 'daily'
+  if (s.startsWith('mondays') || s.startsWith('tuesdays') || s.startsWith('wednesdays') || s.startsWith('thursdays') || s.startsWith('fridays') || s.startsWith('saturdays') || s.startsWith('sundays')) return 'weekly'
+  return null
+}
+
+const cadenceColor: Record<Cadence, string> = {
+  daily: '#10B981',
+  weekly: '#ECBD6A',
+  monthly: '#F97316',
+}
+
 export default function Node({ data, color, index, positions, dimmed, onHover, onClick }: Props) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -61,7 +81,22 @@ export default function Node({ data, color, index, positions, dimmed, onHover, o
     >
       <NodeIcon name={data.icon} color={color} />
       <span className="node-label">{data.label}</span>
-      {data.schedule && <span className="node-schedule">{data.schedule.split(' ')[1] || data.schedule.split(' ')[0]}</span>}
+      {data.schedule && (() => {
+        const cadence = cadenceOf(data.schedule)
+        return (
+          <span className="node-schedule">
+            {cadence && (
+              <span
+                className="node-cadence-pip"
+                style={{ background: cadenceColor[cadence] }}
+                aria-label={`Runs ${cadence}`}
+                title={`Runs ${cadence}`}
+              />
+            )}
+            {data.schedule.split(' ')[1] || data.schedule.split(' ')[0]}
+          </span>
+        )
+      })()}
     </motion.div>
   )
 }
